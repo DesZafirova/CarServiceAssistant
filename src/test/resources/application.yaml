@@ -1,0 +1,42 @@
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+  sql:
+     init:
+       mode: never
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+#  datasource:
+#    driverClassName: com.mysql.cj.jdbc.Driver
+#    username: ${MYSQL_USER}
+#    password: ${MYSQL_PASSWORD}
+#    url: jdbc:mysql://localhost:3306/carServiceAssistant?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+#  thymeleaf:
+#    cache: false
+#    enabled: true
+#    prefix: classpath:/templates/
+#    suffix: .html
+carservice:
+  default.admin.pass: topsecret
+  remember.me.key: topsecret
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+    org.springframework.security: TRACE
+mail:
+  carservice: "carserviceassist@example.com"
+  host: localhost
+  port: 1025
+  username: test
+  password: test@ex.com
+
+server:
+  port: 8080
