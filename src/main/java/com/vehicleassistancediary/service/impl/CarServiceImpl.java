@@ -1,5 +1,6 @@
 package com.vehicleassistancediary.service.impl;
 
+import com.vehicleassistancediary.model.entity.UserEntity;
 import com.vehicleassistancediary.model.entity.dto.CarDetailsDto;
 import com.vehicleassistancediary.model.entity.CarEntity;
 import com.vehicleassistancediary.model.entity.dto.CreateCarDto;
@@ -11,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,10 +32,15 @@ public class CarServiceImpl implements CarService {
     }
 
 
+
     @Override
-    public Page<GarageSummaryDTO> getAllCars(Pageable pageable) {
-        return carRepository.findAll(pageable).map(CarServiceImpl::mapAsSummary);
+    public Page<GarageSummaryDTO> getAllCars(UserDetails user, Pageable pageable) {
+        UserEntity userEntity = userService.findByEmail(user.getUsername());
+        return carRepository.findAllByUser(userEntity, pageable)
+                .map(CarServiceImpl::mapAsSummary);
     }
+
+
 
     @Override
     public UUID addNewCar(CreateCarDto createCarDto) {
@@ -42,16 +49,6 @@ public class CarServiceImpl implements CarService {
         carRepository.save(carEntity);
         return carEntity.getUuid();
 
-    }
-
-    private static GarageSummaryDTO mapAsSummary(CarEntity carEntity) {
-        return new GarageSummaryDTO(
-                carEntity.getUuid().toString(),
-                carEntity.getMake(),
-                carEntity.getModel(),
-                carEntity.getYear(),
-                carEntity.getKilometers()
-        );
     }
 
 
@@ -67,6 +64,21 @@ public class CarServiceImpl implements CarService {
     @Transactional
     public void deleteCar(UUID uuid) {
         carRepository.deleteByUuid(uuid);
+    }
+
+    @Override
+    public CarEntity findByRegistrationNumber(String carByRegistrationNumber) {
+        return carRepository.findCarByRegistrationNumber(carByRegistrationNumber).orElse(null);
+    }
+
+    private static GarageSummaryDTO mapAsSummary(CarEntity carEntity) {
+        return new GarageSummaryDTO(
+                carEntity.getUuid().toString(),
+                carEntity.getMake(),
+                carEntity.getModel(),
+                carEntity.getYear(),
+                carEntity.getKilometers()
+        );
     }
 
 

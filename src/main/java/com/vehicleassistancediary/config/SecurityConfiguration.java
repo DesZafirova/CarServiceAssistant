@@ -34,6 +34,7 @@ public class SecurityConfiguration {
 //                            .requestMatchers("/api/currency/convert").permitAll()
                             .requestMatchers(HttpMethod.GET, "/car/**").permitAll()
                             .requestMatchers("/error").permitAll()
+                            .requestMatchers("/repair/**", "/taxes/**").hasRole(UserRoleEnum.USER.name())
                             .requestMatchers("/service").hasRole(UserRoleEnum.ADMIN.name())
                             // all other requests are authenticated.
                             .anyRequest().authenticated()

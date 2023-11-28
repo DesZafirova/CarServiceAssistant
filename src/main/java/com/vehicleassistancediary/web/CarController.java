@@ -71,9 +71,12 @@ public class CarController {
                 .orElseThrow(() -> new ObjectNotFoundException("Car with uuid " + uuid + " not found!"));
 
         model.addAttribute("car", carDetailsDto);
-//        CarRepairSummaryDto carRepairSummaryDto = carRepairService.getCarRepairSummary(uuid)
-//                .orElseThrow(() -> new ObjectNotFoundException("Repair with uuid " + uuid + " not found!"));
-//        model.addAttribute("repairs", carRepairSummaryDto);
+
+        CarRepairSummaryDto carRepairSummaryDto = carRepairService.findLastRepair(uuid);
+        if(carRepairSummaryDto != null){
+            model.addAttribute("lastRepair", carRepairSummaryDto);
+        }
+
 
 
         return "details" ;
@@ -89,7 +92,5 @@ public class CarController {
     public CarDetailsDto carDetailsDto(){
         return new CarDetailsDto();
     }
-
-
 
 }

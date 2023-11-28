@@ -8,4 +8,5 @@ public interface UserService {
     void registerUser(RegisterUserBindingModel registerUserBindingModel);
 
     UserEntity findByEmail(String userEmail);
+
 }

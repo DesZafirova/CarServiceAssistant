@@ -1,27 +1,15 @@
-
 spring:
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     defer-datasource-initialization: true
   sql:
-     init:
-       mode: never
+    init:
+      mode: never
   mvc:
     hiddenmethod:
       filter:
         enabled: true
-
-#  datasource:
-#    driverClassName: com.mysql.cj.jdbc.Driver
-#    username: ${MYSQL_USER}
-#    password: ${MYSQL_PASSWORD}
-#    url: jdbc:mysql://localhost:3306/carServiceAssistant?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
-#  thymeleaf:
-#    cache: false
-#    enabled: true
-#    prefix: classpath:/templates/
-#    suffix: .html
 carservice:
   default.admin.pass: topsecret
   remember.me.key: topsecret
@@ -34,9 +22,6 @@ logging:
 mail:
   carservice: "carserviceassist@example.com"
   host: localhost
-  port: 1025
-  username: test
-  password: test@ex.com
-
-server:
-  port: 8080
+  port: 3333
+  username: test@service.com
+  password: password

@@ -91,17 +91,21 @@
                                 <p class="mb-4">The change is not made without reason - engine oil provides lubrication and cooling of the engine.</p>
                                <th:block th:each="log : ${oilChange}" th:object="${log}" >
                                    <p><i class="fa fa-check text-success me-3"></i>
-                                       <span>• Repair Date</span>
+                                       <span>• Repair Date: </span>
                                        <th:block th:text="*{repairDate}">123</th:block>
                                    </p>
 
                                    <p><i class="fa fa-check text-success me-3"></i>
                                        <span>• Kilometers</span>
-                                       <th:block th:text="*{mileage}">Date</th:block>
+                                       <th:block th:text="*{mileage}">123</th:block>
                                    </p>
                                    <p><i class="fa fa-check text-success me-3"></i>
                                        <span>• Description</span>
-                                       <th:block th:text="*{description}">Date</th:block>
+                                       <th:block th:text="*{description}">Motor oil</th:block>
+                                   </p>
+                                   <p><i class="fa fa-check text-success me-3"></i>
+                                       <span>• Service: </span>
+                                       <th:block th:text="*{getService().name}">Name</th:block>
                                    </p>
                                    <a href="" class="btn btn-primary py-3 px-5 mt-3">Read More<i
                                            class="fa fa-arrow-right ms-3"></i></a>
@@ -118,23 +122,25 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h3 class="mb-3">15 Years Of Experience In Auto Servicing</h3>
-                                <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam
-                                    amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo
-                                    justo magna dolore erat amet</p>
+                                <h3 class="mb-3">You should replace your tires twice a year.</h3>
+                                <p class="mb-4">Don't wait for snow to fall or temperatures to reach 25 degrees in spring.</p>
                                 <th:block th:each="log : ${tireReplacementLog}" th:object="${log}" >
                                     <p><i class="fa fa-check text-success me-3"></i>
                                         <span>• Repair Date</span>
-                                        <th:block th:text="*{repairDate}">123</th:block>
+                                        <th:block th:text="*{repairDate}">Date</th:block>
                                     </p>
 
                                     <p><i class="fa fa-check text-success me-3"></i>
                                         <span>• Kilometers</span>
-                                        <th:block th:text="*{mileage}">Date</th:block>
+                                        <th:block th:text="*{mileage}">123</th:block>
                                     </p>
                                     <p><i class="fa fa-check text-success me-3"></i>
                                         <span>• Description</span>
-                                        <th:block th:text="*{description}">Date</th:block>
+                                        <th:block th:text="*{description}">Change with winter</th:block>
+                                    </p>
+                                    <p><i class="fa fa-check text-success me-3"></i>
+                                        <span>• Service: </span>
+                                        <th:block th:text="*{getService().name}">Name</th:block>
                                     </p>
                                     <a href="" class="btn btn-primary py-3 px-5 mt-3">Read More<i
                                             class="fa fa-arrow-right ms-3"></i></a>
@@ -151,10 +157,8 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h3 class="mb-3">15 Years Of Experience In Auto Servicing</h3>
-                                <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam
-                                    amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo
-                                    justo magna dolore erat amet</p>
+                                <h3 class="mb-3">Every car should undergo a seasonal inspection on a regular basis to check the wear and tear on all car components to detect damage before it causes serious problems.</h3>
+                                <p class="mb-4">Before the summer season, every car should be checked from the cooling system, air conditioning system and ventilation system.</p>
                                 <th:block th:each="log : ${antifreezeAndCoolingSystemLog}" th:object="${log}" >
                                     <p><i class="fa fa-check text-success me-3"></i>
                                         <span>• Repair Date</span>
@@ -245,17 +249,17 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="/lib/wow/wow.min.js"></script>
+    <script src="/lib/easing/easing.min.js"></script>
+    <script src="/lib/waypoints/waypoints.min.js"></script>
+    <script src="/lib/counterup/counterup.min.js"></script>
+    <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="/lib/tempusdominus/js/moment.min.js"></script>
+    <script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 
 </html>
