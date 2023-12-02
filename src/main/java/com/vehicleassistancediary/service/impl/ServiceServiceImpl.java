@@ -11,6 +11,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ServiceServiceImpl implements ServiceService {
     private final ServiceRepository serviceRepository;
@@ -29,5 +31,10 @@ public class ServiceServiceImpl implements ServiceService {
         service.setPassword(passwordEncoder.encode(registerCarServiceBindingModel.getPassword()));
         //todo set Enum by Admin
         serviceRepository.save(service);
+    }
+
+    @Override
+    public List<ServiceEntity> findAllServices() {
+        return serviceRepository.findAll();
     }
 }

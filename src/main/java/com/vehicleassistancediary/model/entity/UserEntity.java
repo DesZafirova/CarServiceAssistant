@@ -107,4 +107,7 @@ public class UserEntity extends BaseEntity{
         this.roles = roles;
         return this;
     }
+    public String fullName(){
+        return firstName + " " + lastName;
+    }
 }

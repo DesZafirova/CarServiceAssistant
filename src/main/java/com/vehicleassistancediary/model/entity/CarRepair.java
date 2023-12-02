@@ -37,7 +37,7 @@ public class CarRepair extends BaseEntity {
     @Positive
     private Integer mileage;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private CarEntity car;
     @ManyToOne
     private ServiceEntity service;

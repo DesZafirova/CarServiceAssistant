@@ -7,6 +7,7 @@ import com.vehicleassistancediary.model.entity.dto.CreateCarDto;
 import com.vehicleassistancediary.model.entity.dto.GarageSummaryDTO;
 import com.vehicleassistancediary.repository.CarRepository;
 import com.vehicleassistancediary.service.CarService;
+import com.vehicleassistancediary.service.CloudinaryImageService;
 import com.vehicleassistancediary.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -15,7 +16,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -24,11 +27,13 @@ public class CarServiceImpl implements CarService {
     private final CarRepository carRepository;
     private final UserService userService;
     private final ModelMapper modelMapper;
+    private final CloudinaryImageService cloudinaryImageService;
 
-    public CarServiceImpl(CarRepository carRepository, UserService userService, ModelMapper modelMapper) {
+    public CarServiceImpl(CarRepository carRepository, UserService userService, ModelMapper modelMapper, CloudinaryImageService cloudinaryImageService) {
         this.carRepository = carRepository;
         this.userService = userService;
         this.modelMapper = modelMapper;
+        this.cloudinaryImageService = cloudinaryImageService;
     }
 
 
@@ -43,9 +48,14 @@ public class CarServiceImpl implements CarService {
 
 
     @Override
-    public UUID addNewCar(CreateCarDto createCarDto) {
+    public UUID addNewCar(CreateCarDto createCarDto, UserDetails userDetails) throws IOException {
+        MultipartFile img = createCarDto.getImageUrl();
+        String imageUrl = cloudinaryImageService.uploadImage(img);
+        UserEntity user = userService.findByEmail(userDetails.getUsername());
         CarEntity carEntity = modelMapper.map(createCarDto, CarEntity.class);
         carEntity.setUuid(UUID.randomUUID());
+        carEntity.setImageUrl(imageUrl);
+        carEntity.setUser(user);
         carRepository.save(carEntity);
         return carEntity.getUuid();
 
@@ -77,7 +87,8 @@ public class CarServiceImpl implements CarService {
                 carEntity.getMake(),
                 carEntity.getModel(),
                 carEntity.getYear(),
-                carEntity.getKilometers()
+                carEntity.getKilometers(),
+                carEntity.getImageUrl()
         );
     }
 
@@ -91,6 +102,7 @@ public class CarServiceImpl implements CarService {
                 carEntity.getRegistrationNumber(),
                 carEntity.getVin(),
                 carEntity.getKilometers(),
+                carEntity.getImageUrl(),
                 carEntity.getVehicleType(),
                 carEntity.getEngineType()
         );

@@ -58,14 +58,14 @@
             <div class="col-lg-8">
                 <div class="tab-content w-100">
                     <div class="tab-pane fade show active" id="tab-pane-1">
-                        <div class="row g-4">
+                        <div class="row g-4" th:object="${car}">
                             <div class="col-md-6" style="min-height: 350px;">
                                 <div class="position-relative h-100">
-                                    <img class="position-absolute img-fluid w-100 h-100" src="/images/service-1.jpg"
+                                    <img class="position-absolute img-fluid w-100 h-100" th:src="*{imageUrl}"
                                          style="object-fit: cover;" alt="">
                                 </div>
                             </div>
-                            <div class="col-md-6" th:object="${car}">
+                            <div class="col-md-6" >
                                 <h3 class="mb-3" th:text="${car.summary()}">Summary</h3>
                                 <p class="mb-4" th:text="${car.vehicleType}">Vehicle Type</p>
                                 <th:block>
@@ -108,6 +108,7 @@
                                          style="object-fit: cover;" alt="">
                                 </div>
                             </div>
+                            <th:block th:if="${lastRepair != null}">
                             <div class="col-md-6" th:object="${lastRepair}">
                                 <h3 class="mb-3" th:text="*{repair}">Your last vehicle repair</h3>
                                 <p class="mb-4" th:text="*{description}"></p>
@@ -128,6 +129,18 @@
                                         class="fa fa-arrow-right ms-3"></i></a>
 
                             </div>
+                            </th:block>
+                            <th:block th:unless="${lastRepair != null}">
+                                <div class="col-md-6" >
+                                    <h3 class="mb-3" >Your last vehicle repair</h3>
+                                    <p class="mb-4" > No repairs yet</p>
+
+<!--                                    <a  class="btn btn-primary py-3 px-5 mt-3">Book Repair<i-->
+<!--                                            class="fa fa-arrow-right ms-3"></i></a>-->
+
+                                </div>
+                            </th:block>
+
                         </div>
                     </div>
                     <div class="tab-pane fade" id="tab-pane-3">
@@ -143,19 +156,19 @@
                                 <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam
                                     amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo
                                     justo magna dolore erat amet</p>
-                                <th:block th:each="log : ${antifreezeAndCoolingSystemLog}" th:object="${log}">
+                                <th:block >
                                     <p><i class="fa fa-check text-success me-3"></i>
                                         <span>• Repair Date</span>
-                                        <th:block th:text="*{repairDate}">123</th:block>
+                                        <th:block >123</th:block>
                                     </p>
 
                                     <p><i class="fa fa-check text-success me-3"></i>
                                         <span>• Kilometers</span>
-                                        <th:block th:text="*{mileage}">Date</th:block>
+                                        <th:block >Date</th:block>
                                     </p>
                                     <p><i class="fa fa-check text-success me-3"></i>
                                         <span>• Description</span>
-                                        <th:block th:text="*{description}">Date</th:block>
+                                        <th:block >Date</th:block>
                                     </p>
                                     <a href="" class="btn btn-primary py-3 px-5 mt-3">Read More<i
                                             class="fa fa-arrow-right ms-3"></i></a>
@@ -174,20 +187,34 @@
                             <div class="col-md-6">
                                 <form>
                                     <div class="row g-3">
-                                        <div class="col-12 col-sm-6">
-                                            <input type="text" class="form-control border-0" placeholder="Your Name"
+                                        <div class="col-12 col-sm-6" th:object="${user}">
+                                            <input type="text" class="form-control border-0" th:value="*{fullName()}"
                                                    style="height: 55px;">
                                         </div>
-                                        <div class="col-12 col-sm-6">
-                                            <input type="email" class="form-control border-0" placeholder="Your Email"
+                                        <div class="col-12 col-sm-6" th:object="${user}">
+                                            <input type="email" class="form-control border-0" th:value="*{email}"
+                                                   style="height: 55px;">
+                                        </div>
+                                        <div class="col-12 col-sm-6" th:object="${car}">
+                                            <input type="make" class="form-control border-0" th:value="*{make}"
+                                                   style="height: 55px;">
+                                        </div>
+                                        <div class="col-12 col-sm-6" th:object="${car}">
+                                            <input type="registrationNumber" class="form-control border-0"  th:value="*{registrationNumber}"
                                                    style="height: 55px;">
                                         </div>
                                         <div class="col-12 col-sm-6">
                                             <select class="form-select border-0" style="height: 55px;">
-                                                <option selected>Select A Service</option>
-                                                <option value="1">Service 1</option>
-                                                <option value="2">Service 2</option>
-                                                <option value="3">Service 3</option>
+                                                <option selected >Type Repair</option>
+                                                <option th:each="r : ${T(com.vehicleassistancediary.model.entity.enums.CarRepairEnum).values()}" th:value="${r}" th:text="${r}">Service 1</option>
+
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <select class="form-select border-0" style="height: 55px;">
+                                                <option selected >Select A Service</option>
+                                                <option th:each="service : ${allServices}" th:text="${service.name}" >Service 1</option>
+
                                             </select>
                                         </div>
                                         <div class="col-12 col-sm-6">

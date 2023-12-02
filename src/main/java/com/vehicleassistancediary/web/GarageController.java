@@ -33,6 +33,9 @@ public class GarageController {
                       ) Pageable pageable, @AuthenticationPrincipal UserDetails user) {
 
         Page<GarageSummaryDTO> allCars = carService.getAllCars(user, pageable);
+//        if(allCars == null){
+//            return "redirect:/car/add";
+//        }
 
         model.addAttribute("cars", allCars);
 

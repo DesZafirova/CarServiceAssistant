@@ -5,6 +5,7 @@ import com.vehicleassistancediary.model.entity.enums.EngineTypeEnum;
 import com.vehicleassistancediary.model.entity.enums.VehicleTypeEnum;
 import jakarta.persistence.*;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,9 +50,9 @@ public class CarEntity extends BaseEntity {
     @ManyToOne
     private UserEntity user;
 
-
+    @NotNull
     private String imageUrl;
-    @OneToMany(mappedBy = "car")
-    private Set<CarRepair> carRepair;
+
+
 
 }

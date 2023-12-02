@@ -8,7 +8,7 @@ import com.vehicleassistancediary.service.impl.TollService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/taxes")
+@RequestMapping("/toll")
 public class TollController {
 
     private final TollService tollService;
@@ -17,7 +17,7 @@ public class TollController {
         this.tollService = tollService;
     }
 
-    @PostMapping("/toll")
+    @PostMapping("/check")
     public TollResponse checkToll(@RequestBody TollDto request) {
         return tollService.checkToll(request.getIdentificationNumber());
     }

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ public interface CarService {
 
     Page<GarageSummaryDTO> getAllCars(UserDetails user, Pageable pageable);
 
-    UUID addNewCar(CreateCarDto createCarDto);
+    UUID addNewCar(CreateCarDto createCarDto,  UserDetails userDetails) throws IOException;
 
     Optional<CarDetailsDto> getCarDetail(UUID carUuid);
 

@@ -1,5 +1,6 @@
 
 spring:
+
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     defer-datasource-initialization: true
@@ -15,6 +16,10 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
 
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
@@ -41,6 +46,11 @@ mail:
   port: 1025
   username: ${MAIL_USER:carservice}
   password: ${MAIL_PASSWORD:carservice}
+
+cloudinary:
+  cloud-name: "${CLOUD_NAME}"
+  api-key: "${API_KEY}"
+  api-secret: "${API_SECRET}"
 
 server:
   port: 8080

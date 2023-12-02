@@ -28,7 +28,7 @@ public class CarRepairDetailsDto {
 
     private CarRepairEnum repair;
 
-    private LocalDate repairDate;
+    private String repairDate;
 
     private String description;
 

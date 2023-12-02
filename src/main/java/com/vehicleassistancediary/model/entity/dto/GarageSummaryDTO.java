@@ -6,7 +6,9 @@ public record GarageSummaryDTO (String id,
                                 String make,
                                 String model,
                                 Integer year,
-                                Integer kilometers
+                                Integer kilometers,
+                                String imageUrl
+
                                 ){
 
     public String summary(){

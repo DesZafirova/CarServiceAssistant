@@ -1,18 +1,21 @@
 package com.vehicleassistancediary.service.impl;
 import com.vehicleassistancediary.model.entity.CarRepair;
-import com.vehicleassistancediary.model.entity.dto.CarDetailsDto;
+import com.vehicleassistancediary.model.entity.UserEntity;
 import com.vehicleassistancediary.model.entity.dto.CarRepairDetailsDto;
 import com.vehicleassistancediary.model.entity.dto.CarRepairSummaryDto;
+import com.vehicleassistancediary.model.entity.dto.CreateNewRepairDto;
 import com.vehicleassistancediary.model.entity.enums.CarRepairEnum;
 import com.vehicleassistancediary.repository.CarRepairRepository;
 import com.vehicleassistancediary.service.CarRepairService;
 
 import com.vehicleassistancediary.service.CarService;
+import com.vehicleassistancediary.service.ServiceService;
+import com.vehicleassistancediary.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -22,12 +25,18 @@ public class CarRepairServiceImpl implements CarRepairService {
     private final CarRepairRepository carRepairRepository;
     private final ModelMapper modelMapper;
     private final CarService carService;
+    private final ServiceService serviceService;
+    private final UserService userService;
 
 
-    public CarRepairServiceImpl(CarRepairRepository carRepairRepository, ModelMapper modelMapper, CarService carService) {
+
+    public CarRepairServiceImpl(CarRepairRepository carRepairRepository, ModelMapper modelMapper, CarService carService, ServiceService serviceService, UserService userService) {
  this.carRepairRepository = carRepairRepository;
         this.modelMapper = modelMapper;
         this.carService = carService;
+
+        this.serviceService = serviceService;
+        this.userService = userService;
     }
 
     @Override
@@ -39,8 +48,8 @@ public class CarRepairServiceImpl implements CarRepairService {
     }
 
     @Override
-    public CarRepairSummaryDto findLastRepair(UUID uuid) {
-       return carRepairRepository.findLastRepair(uuid)
+    public CarRepairSummaryDto findLastRepair(UUID uuidCar) {
+       return carRepairRepository.findLastRepair(uuidCar)
         .map(carRepair -> modelMapper.map(carRepair, CarRepairSummaryDto.class))
                 .orElse(null);
 
@@ -53,13 +62,12 @@ public class CarRepairServiceImpl implements CarRepairService {
                 .collect(Collectors.toList());
     }
 
-//    @Override
-//    public Optional<CarRepairSummaryDto> getCarRepairSummary(UUID uuid) {
-//        return carRepairRepository.findByUuidAndRepair()
-//    }
-//    public static CarRepairSummaryDto mapAsSummary(CarRepair carRepair){
-//        return new CarRepairSummaryDto().ge
-//    }
+
+
+    @Override
+    public UUID addNewRepair(UUID uuid) {
+        return null;
+    }
 
 
 }

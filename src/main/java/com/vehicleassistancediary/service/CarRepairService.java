@@ -1,9 +1,12 @@
 package com.vehicleassistancediary.service;
 
+import com.vehicleassistancediary.model.entity.CarRepair;
 import com.vehicleassistancediary.model.entity.dto.CarDetailsDto;
 import com.vehicleassistancediary.model.entity.dto.CarRepairDetailsDto;
 import com.vehicleassistancediary.model.entity.dto.CarRepairSummaryDto;
+import com.vehicleassistancediary.model.entity.dto.CreateNewRepairDto;
 import com.vehicleassistancediary.model.entity.enums.CarRepairEnum;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +20,9 @@ public interface CarRepairService {
 
     List<CarRepairDetailsDto> findByCarUuid(UUID uuid);
 
-//    Optional<CarRepairSummaryDto> getCarRepairSummary(UUID uuid);
+
+    UUID addNewRepair(UUID uuid);
+
 
 //    Optional<CarRepairSummaryDto> getCarRepairSummary(UUID uuid);
 

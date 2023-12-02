@@ -2,16 +2,19 @@ package com.vehicleassistancediary.model.entity.dto;
 
 import com.vehicleassistancediary.model.entity.enums.EngineTypeEnum;
 import com.vehicleassistancediary.model.entity.enums.VehicleTypeEnum;
+import com.vehicleassistancediary.model.validations.YearNotInTheFuture;
 import jakarta.validation.constraints.*;
+import org.springframework.web.multipart.MultipartFile;
 
 public class CreateCarDto {
     @NotEmpty
-    @Size(min = 5, max = 512)
+    @Size(min = 3, max = 25, message = "Make length must be between 3 and 25 characters")
     private String make;
     @NotNull
     private String model;
-    @NotNull
-    @Min(1970)
+    @NotNull(message = "Year must be provided!")
+    @Min(1950)
+    @YearNotInTheFuture(message = "The year should not be in the future!")
     private Integer year;
     @NotNull
     @Positive
@@ -22,6 +25,10 @@ public class CreateCarDto {
     @NotEmpty
     @Size(min = 13, max = 17)
     private String vin;
+
+
+    @NotNull
+    private MultipartFile imageUrl;
 
     @NotNull
     private VehicleTypeEnum vehicleType;
@@ -90,5 +97,13 @@ public class CreateCarDto {
 
     public void setEngineType(EngineTypeEnum engineType) {
         this.engineType = engineType;
+    }
+
+    public MultipartFile getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(MultipartFile imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

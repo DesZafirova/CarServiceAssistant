@@ -61,12 +61,12 @@
                     <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill"
                             data-bs-target="#tab-pane-2" type="button">
                         <i class="fa fa-car fa-2x me-3"></i>
-                        <h4 class="m-0">Cooling System</h4>
+                        <h4 class="m-0">Tires Replacement</h4>
                     </button>
                     <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill"
                             data-bs-target="#tab-pane-3" type="button">
                         <i class="fa fa-cog fa-2x me-3"></i>
-                        <h4 class="m-0">Tires Replacement</h4>
+                        <h4 class="m-0">Cooling System</h4>
                     </button>
                     <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill"
                             data-bs-target="#tab-pane-4" type="button">
@@ -117,7 +117,7 @@
                         <div class="row g-4">
                             <div class="col-md-6" style="min-height: 350px;">
                                 <div class="position-relative h-100">
-                                    <img class="position-absolute img-fluid w-100 h-100" src="/images/service-2.jpg"
+                                    <img class="position-absolute img-fluid w-100 h-100" src="/images/service-3.jpg"
                                          style="object-fit: cover;" alt="">
                                 </div>
                             </div>
@@ -152,7 +152,7 @@
                         <div class="row g-4">
                             <div class="col-md-6" style="min-height: 350px;">
                                 <div class="position-relative h-100">
-                                    <img class="position-absolute img-fluid w-100 h-100" src="/images/service-3.jpg"
+                                    <img class="position-absolute img-fluid w-100 h-100" src="/images/service-2.jpg"
                                          style="object-fit: cover;" alt="">
                                 </div>
                             </div>
@@ -188,14 +188,26 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <form>
-                                    <div class="row g-3">
+                                <form th:object="carRepairs">
+                                    <div class="row g-3" >
                                         <div class="col-12 col-sm-6">
-                                            <input type="text" class="form-control border-0" placeholder="Your Name"
-                                                   style="height: 55px;">
+                                            <input type="text" class="form-control border-0"  placeholder="Your Name"
+                                                   style="height: 55px;" th:text="*{}">
                                         </div>
                                         <div class="col-12 col-sm-6">
                                             <input type="email" class="form-control border-0" placeholder="Your Email"
+                                                   style="height: 55px;">
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <input type="make" class="form-control border-0" placeholder="Make"
+                                                   style="height: 55px;">
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <input type="registrationNumber" class="form-control border-0" placeholder="Registration Number"
+                                                   style="height: 55px;">
+                                        </div>
+                                        <div class="col-12 col-sm-6">
+                                            <input type="repair" class="form-control border-0" placeholder="Type Repair"
                                                    style="height: 55px;">
                                         </div>
                                         <div class="col-12 col-sm-6">

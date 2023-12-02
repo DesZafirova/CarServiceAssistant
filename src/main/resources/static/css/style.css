@@ -6,6 +6,7 @@
     --dark: #111111;
 }
 
+
 .fw-medium {
     font-weight: 600 !important;
 }
@@ -200,6 +201,16 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+input[type="checkbox"] {
+    -webkit-appearance: checkbox;
+    -moz-appearance: checkbox;
+    appearance: checkbox;
+    display: inline-block;
+    width: auto;
+}
+label[for="rememberme"]{
+    color: black;
+}
 
 
 /*** Service ***/
@@ -333,6 +344,11 @@
 
 .footer .btn.btn-social:hover {
     color: var(--primary);
+}
+.btn-info {
+    color: #fff;
+    background-color: #D81324;
+    border-color: #D81324;
 }
 
 .footer .btn.btn-link {
