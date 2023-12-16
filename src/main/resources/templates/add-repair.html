@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/commons::head}">
+    <title></title></head>
+
+<body>
+<!-- Spinner Start -->
+<div id="spinner"
+     class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+<div th:replace="~{fragments/commons::topbar}">
+
+</div>
+
+<div>
+    <nav th:replace="~{fragments/commons::nav}">
+    </nav>
+</div>
+<div class="row g-4">
+    <div class="col-md-6" style="min-height: 350px;">
+        <div class="position-relative h-100">
+            <img class="position-absolute img-fluid w-100 h-100" src="/images/service-4.jpg"
+                 style="object-fit: cover;" alt="">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <form id="myForm"
+              th:method="POST"
+              th:action="@{/repair/add}"
+              th:object="${addCarRepairDto}" >
+            <div class="row g-3">
+<!--                <div class="col-12 col-sm-6"  >-->
+<!--                    <input type="text" class="form-control border-0"-->
+<!--                           th:name="fullName"-->
+
+
+<!--                           style="height: 55px;">-->
+<!--                </div>-->
+<!--                <div class="col-12 col-sm-6">-->
+<!--                    <input type="email" class="form-control border-0"-->
+<!--                           th:name="email"-->
+
+<!--                           style="height: 55px;">-->
+<!--                </div>-->
+                <th:block>
+                    <div class="col-12 col-sm-6">
+                        <select class="form-select border-0" style="height: 55px;" th:name="carModel" id="carModel">
+                            <option selected>Select vehicle</option>
+                            <option th:each="car : ${carsByUser}" th:object="${car}" th:value="${car.make}" th:text="${car.make}">Make
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-sm-6">
+                        <input type="text" class="form-control border-0"
+                               th:name="registrationNumber"
+                               th:value="*{car.registrationNumber}"
+                               style="height: 55px;">
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <input type="text" class="form-control border-0"
+                               th:name="kilometers"
+                               th:value="*{car.kilometers}"
+                               style="height: 55px;">
+                    </div>
+                </th:block>
+                <div class="col-12 col-sm-6">
+                    <select class="form-select border-0" style="height: 55px;" th:name="repair">
+                        <option selected th:name="repair">Type Repair</option>
+                        <option th:each="r : ${T(com.vehicleassistancediary.model.entity.enums.CarRepairEnum).values()}"
+                                th:value="${r}" th:text="${r}">Service 1
+                        </option>
+
+                    </select>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <select class="form-select border-0" style="height: 55px;" th:name="service">
+                        <option selected>Select A Service</option>
+                        <option th:each="service : ${allServices}" th:object="${s}" th:value="*{s.name}" th:text="*{s.name}">
+                            Service 1
+<!--                        </option>-->
+
+                    </select>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="date" id="date1" data-target-input="nearest">
+                        <input type="text"
+                               th:name="repairDate"
+                               class="form-control border-0 datetimepicker-input"
+                               placeholder="Service Date" data-target="#date1"
+                               data-toggle="datetimepicker"
+                               style="height: 55px;">
+                    </div>
+                </div>
+                <div class="col-12">
+                                            <textarea class="form-control border-0"
+                                                      th:name="description"
+                                                      placeholder="Special Request"></textarea>
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-secondary w-100 py-3" name="btnSubmit" type="submit" value="Book Now">Book
+                        Now
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <footer th:replace="~{fragments/commons::footer}">
+
+    </footer>
+</div>
+<!--<script>-->
+<!--  var pinnedData = getPinnedData();-->
+
+<!--  // Populate the form fields with the pinned data-->
+<!--  document.getElementsByName("fullName")[0].value = pinnedData.fullName;-->
+<!--  document.getElementsByName("email")[0].value = pinnedData.email;-->
+<!--  document.getElementsByName("make")[0].value = pinnedData.make;-->
+<!--  document.getElementsByName("registrationNumber")[0].value = pinnedData.registrationNumber;-->
+<!--  document.getElementsByName("repair")[0].value = pinnedData.repair;-->
+<!--  document.getElementsByName("service")[0].value = pinnedData.service;-->
+<!--  document.getElementsByName("repairDate")[0].value = pinnedData.repairDate;-->
+<!--  document.getElementsByName("description")[0].value = pinnedData.description;-->
+
+
+<!--  document.getElementById("myForm").submit();-->
+<!--</script>-->
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/lib/wow/wow.min.js"></script>
+<script src="/lib/easing/easing.min.js"></script>
+<script src="/lib/waypoints/waypoints.min.js"></script>
+<script src="/lib/counterup/counterup.min.js"></script>
+<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="/lib/tempusdominus/js/moment.min.js"></script>
+<script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="/js/main.js"></script>
+
+
+</body>
+</html>

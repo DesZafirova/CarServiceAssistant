@@ -18,7 +18,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AddCarBindingModel {
+class AddCarBindingModel {
     private String id;
     @Length(min = 3)
     private String make;

@@ -19,6 +19,8 @@ public class UserActivationServiceImpl implements UserActivationService {
     private static final int ACTIVATION_CODE_LENGTH = 21;
     private final EmailService emailService;
     private final UserService userService;
+
+
     private final UserActivationCodeRepository userActivationCodeRepository;
 
     public UserActivationServiceImpl(EmailService emailService, UserService userService, UserActivationCodeRepository userActivationCodeRepository) {
@@ -30,7 +32,7 @@ public class UserActivationServiceImpl implements UserActivationService {
     @EventListener(UserRegisteredEvent.class)
     @Override
     public void userRegistered(UserRegisteredEvent userRegisteredEvent) {
-        String activationCode = createActivationCode(userRegisteredEvent.getUserEmail());
+        String activationCode = createActivationCodeUser(userRegisteredEvent.getUserEmail());
         emailService.sendRegistrationEmail(userRegisteredEvent.getUserEmail(), userRegisteredEvent.getUserNames(), activationCode);
     }
 
@@ -40,7 +42,7 @@ public class UserActivationServiceImpl implements UserActivationService {
     }
 
     @Override
-    public String createActivationCode(String userEmail) {
+    public String createActivationCodeUser(String userEmail) {
         String activationCode = generateActivationCode();
 
         UserActivationCodeEntity userActivationCodeEntity = new UserActivationCodeEntity();
@@ -50,6 +52,8 @@ public class UserActivationServiceImpl implements UserActivationService {
         userActivationCodeRepository.save(userActivationCodeEntity);
         return activationCode;
     }
+
+
 
     private static String generateActivationCode() {
         StringBuilder activationCode = new StringBuilder();

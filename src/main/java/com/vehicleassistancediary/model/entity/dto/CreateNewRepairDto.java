@@ -1,6 +1,5 @@
 package com.vehicleassistancediary.model.entity.dto;
 
-import com.vehicleassistancediary.model.entity.ServiceEntity;
 import com.vehicleassistancediary.model.entity.UserEntity;
 import com.vehicleassistancediary.model.entity.enums.CarRepairEnum;
 import jakarta.validation.constraints.NotNull;
@@ -20,7 +19,7 @@ public class CreateNewRepairDto {
     private String registrationNumber;
     private CarRepairEnum repair;
     private LocalDate repairDate;
-    private List<ServiceEntity> services;
+    private List<UserEntity> services;
 
     public CreateNewRepairDto() {
     }
@@ -65,11 +64,11 @@ public class CreateNewRepairDto {
         this.registrationNumber = registrationNumber;
     }
 
-    public List<ServiceEntity> getServices() {
+    public List<UserEntity> getServices() {
         return services;
     }
 
-    public void setServices(List<ServiceEntity> services) {
+    public void setServices(List<UserEntity> services) {
         this.services = services;
     }
 

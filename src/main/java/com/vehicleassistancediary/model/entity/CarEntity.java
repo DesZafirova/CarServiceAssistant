@@ -23,8 +23,11 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CarEntity extends BaseEntity {
-
+public class CarEntity  {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    private Long id;
     @NotNull
     @JdbcTypeCode(Types.VARCHAR)
     private UUID uuid;

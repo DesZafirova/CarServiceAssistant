@@ -49,7 +49,8 @@
                            type="text"
                            class="form-control"
                            placeholder="First name"/>
-                    <p class="errors alert alert-danger">
+                    <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
+                            class="errors alert alert-danger">
                         First name is required.
                     </p>
                 </div>
@@ -61,7 +62,8 @@
                            type="text"
                            class="form-control"
                            placeholder="Last name"/>
-                    <p class="errors alert alert-danger">
+                    <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                       class="errors alert alert-danger">
                         Last name is required.
                     </p>
                 </div>
@@ -75,7 +77,8 @@
                            type="text"
                            class="form-control"
                            placeholder="Email"/>
-                    <p class="errors alert alert-danger">
+                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                            class="errors alert alert-danger">
                         Email is required.
                     </p>
                 </div>
@@ -87,7 +90,8 @@
                            type="text"
                            class="form-control"
                            placeholder="Address"/>
-                    <p class="errors alert alert-danger">
+                    <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"
+                       class="errors alert alert-danger">
                         Address is optional.
                     </p>
                 </div>
@@ -102,7 +106,8 @@
                            type="password"
                            class="form-control"
                            placeholder="Password"/>
-                    <p class="errors alert alert-danger">
+                    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                            class="errors alert alert-danger">
                         Password is required.
                     </p>
                 </div>
@@ -114,7 +119,8 @@
                            type="password"
                            class="form-control"
                            placeholder="Confirm password"/>
-                    <p class="errors alert alert-danger">
+                    <p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"
+                       class="errors alert alert-danger">
                         Password confirmation is required.
                     </p>
                 </div>
@@ -122,9 +128,10 @@
 
             <div class="row">
                 <div class="col col-md-4">
-                    <div class="button-holder d-flex">
-                        <input type="submit" class="btn btn-info btn-lg" value="Register"/>
-                    </div>
+                    <button class="g-recaptcha btn btn-info btn-lg"
+                            th:attr="data-sitekey=${@reCaptchaConfig.getSite()}"
+                            data-callback='onSubmit'
+                            data-action='submit'>Register</button>
                 </div>
             </div>
 
@@ -150,7 +157,8 @@
                        type="text"
                        class="form-control"
                        placeholder="Name"/>
-                <p class="errors alert alert-danger">
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                        class="errors alert alert-danger">
                     Name is required.
                 </p>
             </div>
@@ -162,7 +170,8 @@
                        type="text"
                        class="form-control"
                        placeholder="Phone Number"/>
-                <p class="errors alert alert-danger">
+                <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"
+                        class="errors alert alert-danger">
                     Phone number is required.
                 </p>
             </div>
@@ -176,7 +185,8 @@
                        type="text"
                        class="form-control"
                        placeholder="Email"/>
-                <p class="errors alert alert-danger">
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                        class="errors alert alert-danger">
                     Email is required.
                 </p>
             </div>
@@ -188,7 +198,7 @@
                        type="text"
                        class="form-control"
                        placeholder="Address"/>
-                <p class="errors alert alert-danger">
+                <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="errors alert alert-danger">
                     Address is optional.
                 </p>
             </div>
@@ -203,7 +213,7 @@
                         type="password"
                         class="form-control"
                         placeholder="Password"/>
-                <p class="errors alert alert-danger">
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="errors alert alert-danger">
                     Password is required.
                 </p>
             </div>
@@ -215,7 +225,7 @@
                        type="password"
                        class="form-control"
                        placeholder="Confirm password"/>
-                <p class="errors alert alert-danger">
+                <p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="errors alert alert-danger">
                     Password confirmation is required.
                 </p>
             </div>
@@ -224,13 +234,24 @@
         <div class="row">
             <div class="col col-md-4">
                 <div class="button-holder d-flex">
-                    <input type="submit" class="btn btn-info btn-lg" value="Register"/>
+                    <button class="g-recaptcha btn btn-info btn-lg"
+                            th:attr="data-sitekey=${@reCaptchaConfig.getSite()}"
+                            data-callback='onSubmit'
+                            data-action='submit'>Register</button>
                 </div>
             </div>
 
 </div>
     </form>
 </div>
+<!-- ReCaptcha -->
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<script>
+    function onSubmit(token) {
+        document.getElementById("registration-form").submit();
+    }
+</script>
+<!-- EO: ReCaptcha -->
 <script>
     var text1 = document.getElementById("user");
     var text = document.getElementById("service");

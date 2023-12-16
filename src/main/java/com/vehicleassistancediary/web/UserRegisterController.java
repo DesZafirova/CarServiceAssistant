@@ -2,26 +2,25 @@ package com.vehicleassistancediary.web;
 
 import com.vehicleassistancediary.model.binding.RegisterCarServiceBindingModel;
 import com.vehicleassistancediary.model.binding.RegisterUserBindingModel;
-import com.vehicleassistancediary.service.ServiceService;
+import com.vehicleassistancediary.model.entity.dto.ReCaptchaResponseDto;
+import com.vehicleassistancediary.service.ReCaptchaService;
 import com.vehicleassistancediary.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/registration")
 public class UserRegisterController {
     private final UserService userService;
-    private final ServiceService serviceService;
+    private final ReCaptchaService reCaptchaService;
 
-    public UserRegisterController(UserService userService, ServiceService serviceService) {
+    public UserRegisterController(UserService userService, ReCaptchaService reCaptchaService) {
         this.userService = userService;
-        this.serviceService = serviceService;
+
+        this.reCaptchaService = reCaptchaService;
     }
 
     @GetMapping("/register")
@@ -31,13 +30,21 @@ public class UserRegisterController {
 
     @PostMapping("/user")
     public String registerConfirm(@Valid RegisterUserBindingModel registerUserBindingModel,
-                                  BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+                                  BindingResult bindingResult, RedirectAttributes redirectAttributes,
+                                  @RequestParam("g-recaptcha-response") String reCaptchaResponse) {
+
         if (bindingResult.hasErrors() && !registerUserBindingModel.getPassword().equals(registerUserBindingModel.getConfirmPassword())) {
             redirectAttributes.addAttribute("registerUserBindingModel", registerUserBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.registerUserBindingModel", bindingResult);
             return "redirect:/registration/register";
 
         }
+        boolean isBot = !reCaptchaService.verify(reCaptchaResponse)
+                        .map(ReCaptchaResponseDto::isSuccess)
+                                .orElse(false);
+         if (isBot){
+             return "redirect:/";
+         }
         userService.registerUser(registerUserBindingModel);
 
         return "redirect:/users/login";
@@ -52,7 +59,7 @@ public class UserRegisterController {
             return "redirect:/registration/register";
 
         }
-        serviceService.registerService(registerCarServiceBindingModel);
+        userService.registerService(registerCarServiceBindingModel);
 
         return "redirect:/users/login";
     }

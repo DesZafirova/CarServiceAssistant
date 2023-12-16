@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="~{fragments/commons::head}">
 </head>
@@ -44,7 +45,7 @@
 
 
 <!-- Service Start -->
-<div class="container-xxl service py-5">
+<div class="container-xxl service py-5" sec:authorize="hasRole('USER')">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h6 class="text-primary text-uppercase">// Our Services //</h6>
@@ -71,7 +72,7 @@
                     <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill"
                             data-bs-target="#tab-pane-4" type="button">
                         <i class="fa fa-cog fa-2x me-3"></i>
-                        <h4 class="m-0">Book a Service</h4>
+                        <h4 class="m-0">Waiting Repairs</h4>
                     </button>
 
                 </div>
@@ -183,57 +184,30 @@
                         <div class="row g-4">
                             <div class="col-md-6" style="min-height: 350px;">
                                 <div class="position-relative h-100">
-                                    <img class="position-absolute img-fluid w-100 h-100" src="/images/service-4.jpg"
+                                    <img class="position-absolute img-fluid w-100 h-100" src="/images/service-2.jpg"
                                          style="object-fit: cover;" alt="">
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <form th:object="carRepairs">
-                                    <div class="row g-3" >
-                                        <div class="col-12 col-sm-6">
-                                            <input type="text" class="form-control border-0"  placeholder="Your Name"
-                                                   style="height: 55px;" th:text="*{}">
-                                        </div>
-                                        <div class="col-12 col-sm-6">
-                                            <input type="email" class="form-control border-0" placeholder="Your Email"
-                                                   style="height: 55px;">
-                                        </div>
-                                        <div class="col-12 col-sm-6">
-                                            <input type="make" class="form-control border-0" placeholder="Make"
-                                                   style="height: 55px;">
-                                        </div>
-                                        <div class="col-12 col-sm-6">
-                                            <input type="registrationNumber" class="form-control border-0" placeholder="Registration Number"
-                                                   style="height: 55px;">
-                                        </div>
-                                        <div class="col-12 col-sm-6">
-                                            <input type="repair" class="form-control border-0" placeholder="Type Repair"
-                                                   style="height: 55px;">
-                                        </div>
-                                        <div class="col-12 col-sm-6">
-                                            <select class="form-select border-0" style="height: 55px;">
-                                                <option selected>Select A Service</option>
-                                                <option value="1">Service 1</option>
-                                                <option value="2">Service 2</option>
-                                                <option value="3">Service 3</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-12 col-sm-6">
-                                            <div class="date" id="date1" data-target-input="nearest">
-                                                <input type="text"
-                                                       class="form-control border-0 datetimepicker-input"
-                                                       placeholder="Service Date" data-target="#date1" data-toggle="datetimepicker"
-                                                       style="height: 55px;">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <textarea class="form-control border-0" placeholder="Special Request"></textarea>
-                                        </div>
-                                        <div class="col-12">
-                                            <button class="btn btn-secondary w-100 py-3" type="submit">Book Now</button>
-                                        </div>
-                                    </div>
-                                </form>
+                                <h3 class="mb-3">Every car should undergo a seasonal inspection on a regular basis to check the wear and tear on all car components to detect damage before it causes serious problems.</h3>
+                                <p class="mb-4">Before the summer season, every car should be checked from the cooling system, air conditioning system and ventilation system.</p>
+                                <th:block th:each="log : ${antifreezeAndCoolingSystemLog}" th:object="${log}" >
+                                    <p><i class="fa fa-check text-success me-3"></i>
+                                        <span>• Repair Date</span>
+                                        <th:block th:text="*{repairDate}">123</th:block>
+                                    </p>
+
+                                    <p><i class="fa fa-check text-success me-3"></i>
+                                        <span>• Kilometers</span>
+                                        <th:block th:text="*{mileage}">Date</th:block>
+                                    </p>
+                                    <p><i class="fa fa-check text-success me-3"></i>
+                                        <span>• Description</span>
+                                        <th:block th:text="*{description}">Date</th:block>
+                                    </p>
+                                    <a href="" class="btn btn-primary py-3 px-5 mt-3">Read More<i
+                                            class="fa fa-arrow-right ms-3"></i></a>
+                                </th:block>
                             </div>
                         </div>
                     </div>

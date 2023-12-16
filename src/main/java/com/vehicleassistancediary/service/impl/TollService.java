@@ -27,11 +27,11 @@ public class TollService {
        return carEntity.getRegistrationNumber();
     }
 
-    public TollResponse checkToll(String licensePlate) {
+    public TollResponse checkToll(String registrationNumber) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> request = new HttpEntity<>("{\"licensePlate\": \"" + licensePlate, headers);
+        HttpEntity<String> request = new HttpEntity<>("{\"licensePlate\": \"" + registrationNumber, headers);
         ResponseEntity<TollResponse> response = restTemplate.postForEntity(apiUrl, request, TollResponse.class);
         return response.getBody();
     }

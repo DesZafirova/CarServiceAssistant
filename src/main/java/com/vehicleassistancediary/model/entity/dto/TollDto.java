@@ -3,13 +3,13 @@ package com.vehicleassistancediary.model.entity.dto;
 import java.time.LocalDateTime;
 
 public class TollDto {
-    String identificationNumber;
+    String registrationNumber;
 
-    public void setIdentificationNumber(String identificationNumber) {
-        this.identificationNumber = identificationNumber;
+    public void setRegistrationNumber(String registrationNumber) {
+        this.registrationNumber = registrationNumber;
     }
 
-    public String getIdentificationNumber() {
-        return identificationNumber;
+    public String getRegistrationNumber() {
+        return registrationNumber;
     }
 }

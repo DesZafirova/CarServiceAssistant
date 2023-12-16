@@ -1,13 +1,16 @@
 package com.vehicleassistancediary.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 @Entity
 @Table(name = "tolls")
-public class TollResponse extends BaseEntity{
+public class TollResponse {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    private Long id;
     private String identificationNumber;
     private String vehicleClass;
     private String emissionClass;
@@ -17,6 +20,13 @@ public class TollResponse extends BaseEntity{
     private String amount;
     private String status;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getIdentificationNumber() {
         return identificationNumber;

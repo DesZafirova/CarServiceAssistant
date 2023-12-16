@@ -1,40 +1,57 @@
 package com.vehicleassistancediary.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.JdbcTypeCode;
 
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
-public class UserEntity extends BaseEntity{
-    @Column(nullable = false)
+public class UserEntity  {
 
-    private String firstName;
-    @Column(nullable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-    private String lastName;
-    @Column(nullable = false, unique = true)
-
-    private String email;
-    @Column(nullable = false)
-
-    private String password;
     @Column(columnDefinition = "TEXT", nullable = false)
     private String address;
-    @OneToMany(mappedBy = "user")
-    private Set<CarEntity> cars;
+    @Column(nullable = false, unique = true)
+    private String email;
+    @NotNull
+    private String password;
     private boolean active;
 
+    @Column
 
+    private String firstName;
+    @Column
 
+    private String lastName;
+
+    @OneToMany(mappedBy = "user")
+    private Set<CarEntity> cars;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<UserRoleEntity> roles = new ArrayList<>();
+
+    private String name;
+
+    @Column(unique = true)
+    private String phoneNumber;
+
+
+    @OneToMany(mappedBy = "service")
+    private Set<CarRepair> carRepair;
 
 
     public String getFirstName() {
@@ -52,6 +69,42 @@ public class UserEntity extends BaseEntity{
 
     public UserEntity setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
+    }
+
+    public Set<CarEntity> getCars() {
+        return cars;
+    }
+
+    public UserEntity setCars(Set<CarEntity> cars) {
+        this.cars = cars;
+        return this;
+    }
+
+    public List<UserRoleEntity> getRoles() {
+        return roles;
+    }
+
+    public UserEntity setRoles(List<UserRoleEntity> roles) {
+        this.roles = roles;
+        return this;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public UserEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public UserEntity setAddress(String address) {
+        this.address = address;
         return this;
     }
 
@@ -73,23 +126,6 @@ public class UserEntity extends BaseEntity{
         return this;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public UserEntity setAddress(String address) {
-        this.address = address;
-        return this;
-    }
-
-    public Set<CarEntity> getCars() {
-        return cars;
-    }
-
-    public UserEntity setCars(Set<CarEntity> cars) {
-        this.cars = cars;
-        return this;
-    }
     public boolean isActive() {
         return active;
     }
@@ -99,15 +135,34 @@ public class UserEntity extends BaseEntity{
         return this;
     }
 
-    public List<UserRoleEntity> getRoles() {
-        return roles;
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public UserEntity setRoles(List<UserRoleEntity> roles) {
-        this.roles = roles;
+    public UserEntity setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
         return this;
     }
-    public String fullName(){
+
+    public Set<CarRepair> getCarRepair() {
+        return carRepair;
+    }
+
+    public UserEntity setCarRepair(Set<CarRepair> carRepair) {
+        this.carRepair = carRepair;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String fullName() {
         return firstName + " " + lastName;
     }
 }

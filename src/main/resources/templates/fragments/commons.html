@@ -78,7 +78,7 @@
         <div class="dropdown-menu fade-up m-0">
           <a href="/garage/all" class="dropdown-item">Garage</a>
           <a href="/car/add" class="dropdown-item">Add Car</a>
-          <a href="/repair" class="dropdown-item">Repair</a>
+          <a href="/repair" class="dropdown-item" sec:authorize="hasRole('SERVICE')">Repair</a>
           <a href="/taxes" class="dropdown-item">Taxes</a>
 
 <!--          <a href="/templates/users/logout.html" class="dropdown-item">Logout</a>-->

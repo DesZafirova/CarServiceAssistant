@@ -1,6 +1,7 @@
 
 spring:
 
+
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     defer-datasource-initialization: true
@@ -25,8 +26,9 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     username: ${MYSQL_USER}
     password: ${MYSQL_PASSWORD}
-    url: jdbc:mysql://localhost:3306/carServiceAssistant?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/carServiceAssistant?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC&sql_mode='NO_ENGINE_SUBSTITUTION'&jdbcCompliantTruncation=false
   thymeleaf:
+    mode: DEBUG
     cache: false
     enabled: true
     prefix: classpath:/templates/
@@ -40,6 +42,10 @@ logging:
     org.hibernate.SQL: DEBUG
     org.hibernate.orm.jdbc.bind: TRACE
 #    org.springframework.security: TRACE
+
+google.recaptcha:
+  site: ${RECAPTCHA_SITE_KEY}
+  secret: ${RECAPTCHA_SITE_SECRET}
 mail:
   carservice: "carserviceassist@example.com"
   host: localhost
@@ -51,6 +57,7 @@ cloudinary:
   cloud-name: "${CLOUD_NAME}"
   api-key: "${API_KEY}"
   api-secret: "${API_SECRET}"
+
 
 server:
   port: 8080

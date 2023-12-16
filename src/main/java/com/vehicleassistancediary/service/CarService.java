@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -26,4 +27,8 @@ public interface CarService {
     void deleteCar(UUID uuid);
 
     CarEntity findByRegistrationNumber(String carByRegistrationNumber);
+
+    CarEntity getCarByUuid(UUID uuid);
+
+    List<CarEntity> getCarsByUser(UserEntity userEntity);
 }

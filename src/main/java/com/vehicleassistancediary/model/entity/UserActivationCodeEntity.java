@@ -1,19 +1,30 @@
 package com.vehicleassistancediary.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_activation_codes")
-public class UserActivationCodeEntity extends BaseEntity{
+public class UserActivationCodeEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    private Long id;
     private String activationCode;
     private Instant created;
     @ManyToOne
     private UserEntity user;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getActivationCode() {
         return activationCode;
@@ -38,4 +49,6 @@ public class UserActivationCodeEntity extends BaseEntity{
     public void setUser(UserEntity user) {
         this.user = user;
     }
+
+
 }

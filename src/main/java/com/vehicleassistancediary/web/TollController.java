@@ -19,7 +19,7 @@ public class TollController {
 
     @PostMapping("/check")
     public TollResponse checkToll(@RequestBody TollDto request) {
-        return tollService.checkToll(request.getIdentificationNumber());
+        return tollService.checkToll(request.getRegistrationNumber());
     }
     @ModelAttribute
     public TollDto tollDto(){

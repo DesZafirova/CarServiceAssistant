@@ -13,75 +13,71 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Configuration
 public class SecurityConfiguration {
     private final String rememberMeKey;
 
-    public SecurityConfiguration(@Value("${carservice.remember.me.key}")String rememberMeKey) {
+    public SecurityConfiguration(@Value("${carservice.remember.me.key}") String rememberMeKey) {
         this.rememberMeKey = rememberMeKey;
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests(
-                authorizeRequest ->
-                    authorizeRequest
-                            .requestMatchers("/js/**", "/css/**", "/images/**", "/lib/**", "/scss/**").permitAll()
-                            .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                            .requestMatchers("/", "/users/login", "/registration/**", "/users/login-error", "about").permitAll()
-                            .requestMatchers("/garage/all").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/car/**").permitAll()
-                            .requestMatchers("/error").permitAll()
-                            .requestMatchers("/repair/**", "/taxes/**").hasRole(UserRoleEnum.USER.name())
-                            .requestMatchers("/service").hasRole(UserRoleEnum.ADMIN.name())
-                            // all other requests are authenticated.
-                            .anyRequest().authenticated()
+        httpSecurity
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(
+                        authorizeRequest ->
+                                authorizeRequest
+
+                                        .requestMatchers("/js/**", "/css/**", "/images/**", "/lib/**", "/scss/**").permitAll()
+                                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                                        .requestMatchers("/", "/users/login", "/registration/**", "/services/login", "/users/login-error", "/services/login-error", "about").permitAll()
+                                        .requestMatchers("/garage/all").permitAll()
+                                        .requestMatchers(HttpMethod.GET, "/car/**").permitAll()
+                                        .requestMatchers("/error").permitAll()
+                                        .requestMatchers( "/repair/**", "/taxes/**").hasRole(UserRoleEnum.USER.name())
+                                        .requestMatchers("/service/**").hasRole(UserRoleEnum.SERVICE.name())
+                                        .requestMatchers("/service").hasRole(UserRoleEnum.ADMIN.name())
+
+                                        // all other requests are authenticated.
+                                        .anyRequest().authenticated()
 
 
-
-        ).formLogin(
-                formLogin ->{
-                    formLogin.loginPage("/users/login")
-                            .usernameParameter("email")
-                            .passwordParameter("password")
-                            .defaultSuccessUrl("/", true)
-                            .failureUrl("/users/login-error");
-                }
-        ).logout(
-                logout ->{
-                    logout.logoutUrl("/users/logout")
-                            .logoutSuccessUrl("/")
-                            .invalidateHttpSession(true);
-                }
-        ).rememberMe(
-                rememberMe ->{
-                    rememberMe.key(rememberMeKey)
-                            .rememberMeParameter("rememberme")
-                            .rememberMeCookieName("rememberme");
-                }
-        )
+                ).formLogin(
+                        formLogin -> {
+                            formLogin.loginPage("/users/login")
+                                    .usernameParameter("email")
+                                    .passwordParameter("password")
+                                    .defaultSuccessUrl("/", true)
+                                    .failureUrl("/users/login-error");
+                        }
+                ).logout(
+                        logout -> {
+                            logout.logoutUrl("/users/logout")
+                                    .logoutSuccessUrl("/")
+                                    .invalidateHttpSession(true);
+                        }
+                ).rememberMe(
+                        rememberMe -> {
+                            rememberMe.key(rememberMeKey)
+                                    .rememberMeParameter("rememberme")
+                                    .rememberMeCookieName("rememberme");
+                        }
+                )
         ;
         return httpSecurity.build();
     }
+
     @Bean
-    public UserDetailsService userDetailsService(UserRepository userRepository){
+    public UserDetailsService userDetailsService(UserRepository userRepository) {
         return new CarServiceAssistantUserDetailService(userRepository);
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return Pbkdf2PasswordEncoder.defaultsForSpringSecurity_v5_8();
     }
 
-//    @Bean
-//    public void addResourceHandlers(ResourceHandlerRegistry registry){
-//        Path imageUploadDir = Paths.get("./car-images");
-//        String imageUploadPath = imageUploadDir.toFile().getAbsolutePath();
-//
-//        registry.addResourceHandler("/car-images/**").addResourceLocations("/file:/" + imageUploadPath + "/");
-//    }
+
 }

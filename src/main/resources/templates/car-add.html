@@ -39,8 +39,7 @@
                        class="form-control"
                        placeholder="Make">
 
-                <p th:if="${#fields.hasErrors('make')}"
-                   th:errors="*{make}"
+                <p th:if="${#fields.hasErrors('make')}" th:errors="*{make}"
                    class="invalid-feedback errors alert alert-danger">
                     Vechicle make is required.
                 </p>

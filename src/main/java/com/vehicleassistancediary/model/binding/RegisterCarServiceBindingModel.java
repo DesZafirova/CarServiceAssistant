@@ -3,19 +3,23 @@ package com.vehicleassistancediary.model.binding;
 import com.vehicleassistancediary.model.entity.UserRoleEntity;
 import com.vehicleassistancediary.model.entity.enums.UserRoleEnum;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 
 public class RegisterCarServiceBindingModel {
     @Length(min = 3, max = 15)
+    @NotNull
     private String name;
-   @Pattern(regexp = "^(((\\+|00)359[- ]?)|(0))([89][- ]?[789]([- ]?\\d){7})$")
+    @Pattern(regexp = "^(((\\+|00)359[- ]?)|(0))([89][- ]?[789]([- ]?\\d){7})$")
+    @NotEmpty
     private String phoneNumber;
     @Email
+    @NotEmpty
     private String email;
-
+    @NotNull
     @Length(min = 3, max = 15)
-
     private String password;
     @Length(min = 3, max = 15)
     private String confirmPassword;

@@ -3,6 +3,10 @@ package com.vehicleassistancediary.model.entity;
 import com.vehicleassistancediary.model.entity.enums.UserRoleEnum;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 @Table(name = "roles")
 @Entity
 public class UserRoleEntity {
@@ -14,6 +18,8 @@ public class UserRoleEntity {
     @Enumerated(EnumType.STRING)
     private UserRoleEnum role;
 
+
+
     public Long getId() {
         return id;
     }
@@ -23,6 +29,7 @@ public class UserRoleEntity {
         return this;
     }
 
+
     public UserRoleEnum getRole() {
         return role;
     }
@@ -31,4 +38,6 @@ public class UserRoleEntity {
         this.role = role;
         return this;
     }
+
+
 }

@@ -67,16 +67,16 @@ import static org.mockito.Mockito.when;
                 .stream()
                 .anyMatch(a -> expectedAuthority.equals(a.getAuthority()));
     }
-    private static UserEntity createTestUser() {
-        return new UserEntity()
-                .setFirstName("firstName")
-                .setLastName("lastName")
-                .setEmail("pesho@softuni.bg")
-                .setActive(false)
-                .setPassword("topsecret")
-                .setRoles(List.of(
-                        new UserRoleEntity().setRole(UserRoleEnum.ADMIN),
-                        new UserRoleEntity().setRole(UserRoleEnum.USER)
-                ));
-    }
+//    private static UserEntity createTestUser() {
+//        return new UserEntity()
+//                .setFirstName("firstName")
+//                .setLastName("lastName")
+//                .setEmail("pesho@softuni.bg")
+//                .setActive(false)
+//                .setPassword("topsecret")
+//                .setRoles(List.of(
+//                        new UserRoleEntity().setRole(UserRoleEnum.ADMIN),
+//                        new UserRoleEntity().setRole(UserRoleEnum.USER)
+//                ));
+//    }
 }
